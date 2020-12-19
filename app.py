@@ -13,7 +13,7 @@ from plotly.offline import plot
 df = pd.read_csv('https://raw.githubusercontent.com/andrewhong5297/flood_dash_app/main/HazardMitigationAssistanceProjects.csv')
 df["projectAmountMillions"]=df["projectAmount"].div(1000000)
 
-regions = pd.read_csv('https://raw.githubusercontent.com/andrewhong5297/flood_dash_app/main/States_Abrev_Regions.xlsx')
+regions = pd.read_csv('https://raw.githubusercontent.com/andrewhong5297/flood_dash_app/main/States_Abrev_Regions.csv')
 state_region_dict = dict(zip(regions["State"],regions["Region"]))
 def state_to_region(x):
     try:
