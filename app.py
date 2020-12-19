@@ -126,10 +126,6 @@ author_tab = dbc.Card(
                         ]),
                         
                         dbc.Row([
-                            html.Label('This dashboard was created to help track unemployment through the Covid19 crisis, and see where disparities pop up during recovery. Please check the Medium blog post for data sourcing and methodology.'),
-                        ]),
-                        
-                        dbc.Row([
                             dcc.Link('Medium Page', href="https://medium.com/@andrew.hong"),
                         ]),
                         
