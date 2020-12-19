@@ -10,10 +10,10 @@ import numpy as np
 import plotly.express as px
 from plotly.offline import plot
 
-df = pd.read_csv(r'C:\Users\Andre\OneDrive - nyu.edu\Documents\Python Script Backup\flood files\HazardMitigationAssistanceProjects.csv')
+df = pd.read_csv('https://raw.githubusercontent.com/andrewhong5297/flood_dash_app/main/HazardMitigationAssistanceProjects.csv')
 df["projectAmountMillions"]=df["projectAmount"].div(1000000)
 
-regions = pd.read_excel(r'C:\Users\Andre\OneDrive - nyu.edu\Documents\Python Script Backup\flood files\States_Abrev_Regions.xlsx', engine='openpyxl')
+regions = pd.read_csv('https://raw.githubusercontent.com/andrewhong5297/flood_dash_app/main/States_Abrev_Regions.xlsx')
 state_region_dict = dict(zip(regions["State"],regions["Region"]))
 def state_to_region(x):
     try:
@@ -37,7 +37,7 @@ from plotly.offline import plot
 available_states = pivot_state['state'].unique()
 fig_px_fema = px.scatter(pivot_state, x="numberOfProperties", y="projectAmountMillions", hover_data=['state','region'],color="region")
 
-PCA_components = pd.read_csv(r'C:\Users\Andre\OneDrive - nyu.edu\Documents\Python Script Backup\flood files\cosine_tsne.csv')
+PCA_components = pd.read_csv('https://raw.githubusercontent.com/andrewhong5297/flood_dash_app/main/cosine_tsne.csv')
 PCA_components.dropna(inplace=True)
 fig_px = px.scatter(PCA_components, x="tsne-2d-one", y="tsne-2d-two", hover_data=['Legislature','Regions','Agg_Name','Bill_Status'],color="State",opacity=0.7) #make color all blue though
 
