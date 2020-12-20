@@ -10,6 +10,14 @@ import numpy as np
 import plotly.express as px
 from plotly.offline import plot
 
+#framework fig
+plot_df = pd.read_csv('https://raw.githubusercontent.com/andrewhong5297/flood_dash_app/main/framework_plot.csv')
+
+fig_frame = px.scatter(plot_df,x="cumulative_risk_score",y="cumulative_response_score",
+           color="Region",hover_data=["State Code"],text="State Code")
+fig_frame.update_traces(textposition='top center')
+
+#FEMA 
 df = pd.read_csv('https://raw.githubusercontent.com/andrewhong5297/flood_dash_app/main/HazardMitigationAssistanceProjects.csv')
 df["projectAmountMillions"]=df["projectAmount"].div(1000000)
 
@@ -110,6 +118,7 @@ bills_tab = dbc.Card(
                     className="mt-3",
                     ) #card end
 
+
 @app.callback(
     Output('bill_summary', 'children'),
     [Input('plot', 'hoverData')])
@@ -117,6 +126,25 @@ def show_bill_summary(data):
     bill_summary = PCA_components[PCA_components["Agg_Name"]==data["points"][0]["customdata"][2]]
     bill_summary = bill_summary["Summary"][bill_summary["Summary"].index[0]] #indexing
     return "Summary: {}".format(bill_summary)
+
+framework_tab = dbc.Card(
+                dbc.CardBody([
+                        # '''bill_flood stuff,should go in it's own tab later'''
+                        dbc.Row([
+                            html.H5("Flood Framework US States")
+                            ]),
+                        dbc.Row([
+                            html.Div("You can double click on a region in the legend to see only states from there"),
+                            ]),
+                
+                        dbc.Row([                        
+                              dbc.Col(
+                              dcc.Graph(figure=fig_frame, style={'height': '500px'})
+                              ,width=10),
+                            ]),
+                        ]),
+                    className="mt-3",
+                    ) #card end
 
 author_tab = dbc.Card(
                 dbc.CardBody(
@@ -140,6 +168,7 @@ author_tab = dbc.Card(
 app.layout = html.Div([
 
     dbc.Tabs([
+        dbc.Tab(framework_tab, label="Framework Explorer"),
         dbc.Tab(FEMA_tab, label="FEMA Projects"),
         dbc.Tab(bills_tab, label="Environmental State Bills"),
         dbc.Tab(author_tab, label="About Me", tab_style={"margin-left": "auto"}, label_style={"color": "#00AEF9"}),
