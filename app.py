@@ -79,10 +79,11 @@ FEMA_tab = dbc.Card(
                               dbc.Col(
                               dcc.Graph(id = "bar_plot", style={'height': '500px'})
                               ,width=10),
+                              ]),
                         
-                            html.H5("Total Project Amount and Number of Properties Covered In FEMA Projects by US State"),
+                        html.H5("Total Project Amount and Number of Properties Covered In FEMA Projects by US State"),
+                        dbc.Row([
                             dcc.Graph(figure = fig_px_fema, style={'height': '500px'}),
-                            
                             ]),
                         ]),
                     className="mt-3",
